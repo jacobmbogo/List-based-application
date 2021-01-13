@@ -426,3 +426,64 @@ let a = [], n = 0;
 for(a[n++] in update);
 
 console.log(a);
+
+function persistence(num) {
+    
+    let numStr = num.toString();
+    let numArr = numStr.split("");
+    num = numArr.reduce((a,b) => a * b);
+
+            if (num > 10){
+                return persistence(num);
+            } else {
+                return num;
+            }
+
+}
+
+console.log(persistence(999));
+
+let they = [1,2,3,4,5];
+console.log(they.findIndex(x => x ===3));
+
+let names = "jacob";
+console.log(names.indexOf("a"));
+
+function order(words){
+    let newOrder =[];
+    let array = words.split(" ");
+    for(i = 0; i < array.length; i++){
+      let position = words.indexOf(i)
+      newOrder.push([position]);
+      return newOrder;
+    }
+   
+  }
+console.log(order("jack is fine"));
+
+
+let sentensi = "james wa team";
+let men = sentensi.split(" ");
+console.log(men);
+console.log(men[1].indexOf("a"));
+
+function findUniq(arr) {
+    let newArr = arr.reduce((a,b) =>b != a);
+    if (newArr){
+        return newArr.indexOf(b);
+    }
+}
+
+console.log(findUniq([1,1,1,0.55,1,1]));
+
+function findUniq(arr) {
+    let result = 0;
+    for(i = 0; i <=arr.length; i++ ){
+        result =result + arr[i];
+        if(arr[i++] = result){
+            result = 0 + arr[i++];
+        }
+        return result;
+    }   
+}
+console.log(findUniq([3,3,3,3,3,10,3]));
