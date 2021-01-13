@@ -296,10 +296,6 @@ const num = [3,6,9];
 num.push(num.push(num.pop()));
 c(num);
 */
-let o = {x: 1};
-let p = null;
-console.log(o && o.x);
-console.log(p && p.x);
 
 /*let username = prompt("Enter username");
 function greeting(){
@@ -312,3 +308,121 @@ greeting();
 for (let i = 0, j = 10; i < j; i++, j--){
     console.log(i + j);
 }
+
+//*Compound and empty statements
+{
+    x = Math.PI;
+    cx = Math.cos(x);
+    console.log("cos(n) = " + cx);
+}
+
+
+//*Switch statements
+//*general syntax: 
+/*
+
+switch (expression){
+    statements
+}
+
+*/
+
+
+
+switch(3){
+    case 0: number = "below 4"
+    break;
+
+    case 2: number = "below 4"
+    break;
+
+    case 3: number = "below 4"
+    break;
+    
+    default: number = "not below 4"
+    break;
+}
+
+console.log(number);
+
+
+function convert (x){
+    switch(typeof x){
+
+        case "number": 
+        return x.toString(16);
+
+        case "string":
+        return '"' + x + '"';
+
+        default:
+            return String(x);
+
+    }
+}
+
+console.log(convert('jina'));
+
+let i, j, sum = 0;
+for(i = 0, j = 10; i < 10; i++, j--){
+    sum += i * j;
+}
+console.log(sum);
+
+let o = {x: 1, y: 2, z:3};
+let keys = "";
+for(let k of Object.keys(o)){
+    keys += k;
+}
+console.log(keys);
+let total = 0;
+for(let v of Object.values(o)){
+    total += v;
+}
+console.log(total);
+
+let frequency = {};
+for(let letter of "mississippi"){
+    if (frequency[letter]){
+        frequency[letter]++;
+    } else {
+        frequency[letter] = 1;
+    }
+}
+console.log(frequency);
+
+let mind = {occupied: "yes"}
+console.log(mind["occupied"]);
+
+let text = "Na na na na na na na na Batman!";
+let wordSet = new Set(text.split(" "));
+let unique = [];
+for (let word of wordSet){
+    unique.push(word);
+}
+console.log(unique);
+
+let m = new Map([[1, "one"]]);
+for (let [key, value] of m){
+    console.log(key);
+    console.log(value);
+}
+
+let list = {
+
+    name:"Jacob",
+    age: 16,
+    sex: "male",
+    school:"Technical University Of Mombasa"
+
+}
+
+for (let component in list){
+    console.log(list[component]);
+}
+
+let update = {x: 1, y: 2, z: 3, type:"cute"};
+let a = [], n = 0;
+for(a[n++] in update);
+
+console.log(a);
