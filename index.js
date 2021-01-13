@@ -1,3 +1,4 @@
+/*
 //todo: JavaScript: The Definitive Guide
 
 //^Chapter one: Introduction to JavaScript
@@ -68,10 +69,9 @@ function sum(array){
 }
 sum(primes);
 
-function c(x){
-    return console.log(x);
-};
+*/
 
+/*
 c(sum(primes));
 c(abs(10));
 
@@ -184,11 +184,6 @@ c(age.get("Jennifer"));
 
 c(Math.imul(4,5));
  
-//*Dates and Times
-let timestamp = Date.now();
-let now = new Date();
-let ms = now.getTime();
-c(now.toISOString());
 
 let ji = 'You\'re right, it can\'t be a quote';
 c(ji);
@@ -270,3 +265,50 @@ c(object.m?.());
 //*An object creation expressions creates a new object and invokes a function (called a constructor) to initialize the properties of that object.
 
 
+c(isNaN(NaN));
+
+//*The in operator
+let point = {x: 1, y: 1}
+c("x" in point);
+
+class Mean{
+    constructor(h, s){
+        this.h = h;
+        this.s = s;
+    }
+    avermean(){
+        return (this.h + this.s)/2;
+    }
+
+}
+let mean = new Mean (4,6);
+c(mean.avermean());
+
+
+function low(){
+    
+}
+
+let okay = new low();
+c(okay instanceof Array);
+
+const num = [3,6,9];
+num.push(num.push(num.pop()));
+c(num);
+*/
+let o = {x: 1};
+let p = null;
+console.log(o && o.x);
+console.log(p && p.x);
+
+/*let username = prompt("Enter username");
+function greeting(){
+    greet = "hello " + (username ? username : "there!!");
+    return console.log(greet);
+}
+greeting();
+*/
+
+for (let i = 0, j = 10; i < j; i++, j--){
+    console.log(i + j);
+}
