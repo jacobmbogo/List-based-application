@@ -467,23 +467,3 @@ let men = sentensi.split(" ");
 console.log(men);
 console.log(men[1].indexOf("a"));
 
-function findUniq(arr) {
-    let newArr = arr.reduce((a,b) =>b != a);
-    if (newArr){
-        return newArr.indexOf(b);
-    }
-}
-
-console.log(findUniq([1,1,1,0.55,1,1]));
-
-function findUniq(arr) {
-    let result = 0;
-    for(i = 0; i <=arr.length; i++ ){
-        result =result + arr[i];
-        if(arr[i++] = result){
-            result = 0 + arr[i++];
-        }
-        return result;
-    }   
-}
-console.log(findUniq([3,3,3,3,3,10,3]));
