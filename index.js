@@ -728,4 +728,8 @@ console.log(pj.x) // => 1: the value from object o overrides the initial value
 let qj = { ...oj, x: 2 };
 console.log(qj.x); // => 2: the value 2 overrides the previous value from o.
 
-
+let square = {
+    area(){return this.side * this.side;},
+    side: 10
+}
+console.log(square.area());
