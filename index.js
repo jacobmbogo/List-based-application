@@ -467,3 +467,176 @@ let men = sentensi.split(" ");
 console.log(men);
 console.log(men[1].indexOf("a"));
 
+let alphabet = {x: 1, y: 2, z:3};
+let ac = [], q = 0;
+for( ac[q++] in alphabet);
+
+for(let q in alphabet) console.log(q);
+
+let data = [7,8,undefined,3,4,5];
+let sumTotal = 0;
+for(let i = 0; i < data.length; i++){
+    if( !data[i]) break;
+    sumTotal += data[i];
+}
+console.log(sumTotal);
+
+/*
+function factorial (x){
+    if(x < 0) throw new Error("x must not be negative");
+    let f;
+    for( f = 1; x > 1; f *= x, x--);
+    return f;
+}
+
+console.log(factorial(4));
+
+try{
+    let n = Number(prompt("Please enter a positive integer", ""));
+    let f = factorial(n);
+    alert(n + "! = " + f);
+}
+catch(ex){
+    alert(ex);
+}
+*/ 
+class Circle {
+    constructor(radius) { this.r = radius; }
+    area() { return Math.PI * this.r * this.r; }
+    circumference() { return 2 * Math.PI * this.r; }
+}
+let aream = new Circle(5);
+console.log(aream.area());
+console.log(aream.circumference())
+
+
+//^Chapter 6: Objects
+//*Querying and setting properties
+let book = {
+    "main title": "JavaScript", // These property names include spaces,
+    "sub-title": "The Definitive Guide", // and hyphens, so use string literals.
+    for: "all audiences", // for is reserved, but no quotes.
+    author: { // The value of this property is
+    firstname: "David", // itself an object.
+    surname: "Flanagan"
+    },
+    raima:Symbol("author")
+
+}
+
+console.log(book.author)
+console.log(book["main title"])
+
+let another = Object.create(book);
+another.author.firstname = "Jack";
+console.log(another.author);
+another.year = 2016;
+another.motto =  function motto(){
+    console.log("I am able")
+}
+
+//*Objects as Associative Arrays
+
+
+let addr = "";
+for(let i = 0; i < 4; i++) {
+addr += [`address${i}`] + "\n";
+}
+console.log(addr);
+
+let portfolio = {};
+portfolio.ibm = 50;
+portfolio.samsung = 59;
+portfolio.dell = 70;
+portfolio.zoom =20;
+
+function addstock(portfolio, stockname, shares){
+    portfolio[stockname]=shares;
+}
+
+addstock(portfolio,"idm", 30);
+
+console.log(portfolio);
+
+
+function computeValue(portfolio){
+    let total = 0.0;
+    for(let stock in portfolio){
+        let shares = portfolio[stock];
+        total += shares
+    }
+    return total;
+}
+console.log(computeValue(portfolio));
+console.log(another.author);
+
+/*
+globalThis.x = 1;
+console.log(delete x);
+*/
+
+
+//*Testing properties
+let identification = {
+
+    name: "Jacob Mbogo",
+    gender: "male",
+    age: 17
+
+}
+
+console.log("name" in identification);
+console.log("male" in identification);
+
+console.log(identification.hasOwnProperty("gender"));
+console.log(identification.propertyIsEnumerable());
+
+console.log(another.hasOwnProperty("author"));
+console.log(another.hasOwnProperty("year"));
+
+//*Enumerating properties
+
+for(let element in another){
+    if(!another.hasOwnProperty(element)) continue;
+    console.log(element);
+}
+
+console.log(identification.age !== undefined);
+
+for(let element in another){
+    if (typeof another[element] === "function") continue;
+    console.log(element);
+}
+
+console.log(Object.keys(book));
+console.log(Reflect.ownKeys(book));
+
+console.log(JSON.stringify(book));
+
+//*Extending Objects
+//*copying properties from one object to another object
+
+let target = {x: 1}, source  = {y: 2, z: 3};
+for(let key of Object.keys(source)){
+    target[key] = source[key];
+}
+
+console.table(target);
+
+//*But because this is a common operation, various JS frameworks have defined utility functions, often named extend(), to perform this copying operation. Finally, this ability comes to the core JavaScript language in the form of Object.assign
+
+
+let newbook = (Object.assign({},{ritual: "abormination", danger: "loss of life"}, book));
+console.table(newbook);
+
+function merge( target, ...sources){
+    for (let source of sources){
+        for(let key of Object.keys(source)){
+            if(!(key in target)){
+                target[key] = source[key];
+            }
+        }
+    }
+    return target;
+}
+console.log(merge({x: 1}, {x: 2, y: 2}, {y: 3, z: 4}));
