@@ -520,7 +520,7 @@ let book = {
     firstname: "David", // itself an object.
     surname: "Flanagan"
     },
-    raima:Symbol("author")
+    raima:"author"
 
 }
 
@@ -629,6 +629,7 @@ console.table(target);
 let newbook = (Object.assign({},{ritual: "abormination", danger: "loss of life"}, book));
 console.table(newbook);
 
+//*We could also avoid the overhead of the extra object creation and copying by writing a version of Object.assign() that copies properties only if they are missing:
 function merge( target, ...sources){
     for (let source of sources){
         for(let key of Object.keys(source)){
@@ -640,3 +641,91 @@ function merge( target, ...sources){
     return target;
 }
 console.log(merge({x: 1}, {x: 2, y: 2}, {y: 3, z: 4}));
+
+//*Serializing Objects: is the process of converting an object's state to a string from which it can later be restored. The functions JSON.stringify() and JSON.parse()
+console.log("jacob otieno");
+
+
+let review = {x: 1, y: {z: [false, null, ""]}};
+let s = JSON.stringify(review);
+let p = JSON.parse(s);
+
+console.log(s);
+console.log(p);
+
+//*Object Methods
+
+let newObject = Object.create(Object.prototype);
+console.log(newObject);
+
+//*The toString() method
+//*It takes no arguments.
+
+let subject = {x: 1, y: 1};
+console.log(subject.toString());
+
+//*The LocaleString() Method
+
+let moneKsh = {
+    x: 1000,
+    y: 2000,
+    toString: function(){return `(${this.x},${this.y})`;},
+    toLocaleString: function(){
+        return `(${this.x.toLocaleString()},${this.y.toLocaleString()})`;
+    }
+};
+console.log(moneKsh.toString());
+console.log(moneKsh.toLocaleString());
+
+//*The valueOf() Method
+let snu = 3;
+console.log(snu.toString(4))
+
+let point = {
+    x:3,
+    y:4,
+    valueOf: function() {return Math.hypot(this.x, this.y);}
+};
+console.log(Number(point));
+
+//*The toJSON(); Method
+
+let point1 = {
+    x:3,
+    y:4,
+    toString:function(){return`(${this.x}, ${this.y});`},
+    toJSON: function(){return this.toString();}
+};
+console.log(Number(point));
+console.log(JSON.stringify([point1]));
+
+//*Extended Object Literal Syntax
+
+let recent = 1, old = 3;
+let updated = {recent, old}
+console.log(updated.recent + updated.old);
+
+//*Computed Property Names
+//*code example not working
+
+
+//*Symbols as Property Names
+const extension = Symbol("my extension symbol");
+let ot = {
+    [extension]: {}
+}
+ot[extension].x = 0;
+console.log(ot[extension]);
+
+//*Spread Operator
+let position = {x: 0, y: 0, z: 70};
+let dimensions = { z: 100, height: 75, ...position};
+console.log(dimensions);
+
+let oj= { x: 1 };
+let pj = { x: 0, ...oj };
+console.log(pj.x) // => 1: the value from object o overrides the initial value
+let qj = { ...oj, x: 2 };
+console.log(qj.x); // => 2: the value 2 overrides the previous value from o.
+
+
