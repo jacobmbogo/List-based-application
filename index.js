@@ -304,7 +304,7 @@ function greeting(){
 }
 greeting();
 */
-
+/*
 for (let i = 0, j = 10; i < j; i++, j--){
     console.log(i + j);
 }
@@ -319,13 +319,12 @@ for (let i = 0, j = 10; i < j; i++, j--){
 
 //*Switch statements
 //*general syntax: 
-/*
 
 switch (expression){
     statements
 }
 
-*/
+
 
 
 
@@ -500,6 +499,7 @@ catch(ex){
     alert(ex);
 }
 */ 
+/*
 class Circle {
     constructor(radius) { this.r = radius; }
     area() { return Math.PI * this.r * this.r; }
@@ -570,12 +570,12 @@ function computeValue(portfolio){
 console.log(computeValue(portfolio));
 console.log(another.author);
 
-/*
+
 globalThis.x = 1;
 console.log(delete x);
 */
 
-
+/*
 //*Testing properties
 let identification = {
 
@@ -733,3 +733,249 @@ let square = {
     side: 10
 }
 console.log(square.area());
+
+const METHOD_NAME = "m";
+const symbol = Symbol();
+let weirdMethods = {
+    "method with Spaces"(x){ return x + 1;},
+    [METHOD_NAME](x){ return x + 2;},
+    [symbol](x){ return x + 3;}
+}
+console.log(weirdMethods["method with Spaces"](1));
+console.log(weirdMethods[METHOD_NAME](1));
+console.log(weirdMethods[symbol](1));
+
+//*Property Getters and Setters
+//*Also known as accessor properties :getter and setter
+
+let newo = {
+    dataProp: "value",
+
+    get accessorProp() {return this.dataProp;},
+    set accessorProp(value) {this.dataProp = value;}
+};
+*/
+
+let p = {
+    x: 1.0,
+    y: 1.0,
+
+    get r() { return Math.hypot(this.x, this.y);},
+    set r(newvalue) {
+        let oldvalue = Math.hypot(this.x, this.y);
+        let ratio = newvalue/oldvalue;
+        this.x *= ratio;
+        this.y *= ratio;
+    },
+    get theta() { return Math.atan2(this.y, this.x);}
+
+};
+console.log(p.r);
+console.log(p.theta);  
+
+const serialnum = {
+    _n: 0,
+
+    get next(){ return this._n++;},
+    set next(n){
+        if (n > this._n) this._n = n;
+        else throw new Error("serial number can only be set to a larger value");
+    }
+};
+serialnum.next = 10;
+console.log(serialnum.next);
+console.log(serialnum.next);
+console.log(serialnum.next);
+
+const random = {
+    get octet(){ return Math.floor(Math.random()*256); },
+    get uint16(){ return Math.floor(Math.random()*65536); },
+    get int16(){ return Math.floor(Math.random()*65536)-32768; }
+};
+
+console.log(random.uint16);
+
+//^Chapter Seven: Arrays
+//*Creating Arrays
+//*Array literals
+//*The ...spread operator on an iterable object
+//*The Array() constructor
+//*The Array.of() and Array.from() factory methods
+
+
+//?Array literals
+let empty = []; //An array with no elements.
+//let b = [[1, {x: 1, y: 2}], [2, {x: 3, y: 4}]];
+
+//?The Spread Operator
+let a = [1, 2, 3];
+let b = [0, ...a, 4];
+
+console.log(b);
+
+//*Strings are iterable, so you can use a spread operator to turn any string into an array of single-character strings:
+
+let digits = [..."0123456789ABCDEF"];
+console.log(digits);
+
+//*Set objects are iterable, so an easy way to remove duplicate elements from an array is to convert the array to a set and then immediately convert the set back to an array using the spread operator;
+
+let letters = [..."hello world"];
+console.log([...new Set(letters)]);
+
+//?The Array() Constructor
+let mpya = new Array();
+let old = new Array(10);
+
+//?The Array.of() function can bbe used to create an array with a single argument:
+let cute = Array.of(5);
+console.log(cute);
+
+//?The Array.from() works like the spread operator
+let original = [45,45]
+let copy = Array.from(original);
+console.log(copy);
+copy[0] = 56;
+console.log(copy);
+
+let c = ["world"];
+let value = a[0];
+c[1] = 3.14;
+let i = 2;
+c[i] = 3;
+c[i + 1] = "hello";
+c[c[i]] = c[0];
+
+console.log(c);
+c["5"] = "myfriend";
+console.log(c[5]);
+console.log(c);
+c[-45] = true;
+console.log(c);
+
+//*Sparse Arrays:
+let cupod = [,,];
+
+//*Length of arrays
+//*Using delete on an array does not alter the length of the array.
+let cupoc = [1, 2, 3];
+delete cupoc[2];
+console.log(2 in cupoc);
+
+console.log(cupoc.length);
+
+//*Iterating arrays
+let string = "";
+for( let letter of letters){
+    string += letter;
+}
+console.log(string);
+let uppercase = "";
+letters.forEach(letter => {
+    uppercase += letter.toUpperCase();
+});
+console.log(uppercase);
+//*If  you want to skip undefined and non-existent elements you might write:
+/*
+for( let i = 0; i < a.length; i++){
+    if(a[i] === undefined) continue;
+};
+*/
+
+//*Multidimensional Arrays
+//* Create a multidimensional array
+let table = new Array(10); // 10 rows of the table
+for(let i = 0; i < table.length; i++){
+    table[i] = new Array(10); // Each row has 10 columns
+}
+
+//* Initialize the array
+for (let row = 0; row < table.length; row++){
+    for(let col = 0; col < table[row].length; col++){
+        table[row][col] = row * col;
+    }
+}
+
+console.log(table[5][7]);
+console.table(table);
+
+//*Array Methods
+//* Array iterator methods
+
+let data = [3,4,3,4,5,7,8,2], sum = 0;
+data.forEach(value => { sum += value; });
+
+let squid = [11,2,,,3,undefined];
+let dense = squid.filter(() => true);
+console.log(dense);
+squid = squid.filter(x => x !== undefined);
+console.log(squid);
+
+squid = squid.filter((x,i) => i % 2 === 0 )
+console.log(squid);
+
+console.log(data.reduce((x,y) => x + y));
+let newmap = [-2, -1, 1, 2].flatMap(x => x < 0 ? [] : Math.sqrt(x));
+console.log(newmap);
+
+console.log(data.slice(2,6));
+console.log(data.splice(1,2,"jacob"),data);
+
+let op = new Array(5);
+console.log(op.fill(6,2));
+
+let deita = [1,6,3,4,5];
+console.log(deita.copyWithin(2,3,1));
+
+function findall(a, x){
+    let results = [],
+        len = a.length,
+        pos = 0;
+        
+    while(pos < len){
+        pos = a.indexOf(x, pos);
+        if (pos === -1) break;
+        results.push(pos);
+        pos = pos + 1;
+    }
+    return results;
+}
+console.log(findall([1,2,5,7,3,8,9,10,31,45,6,2],31));
+
+let sorted = [1,2,99,90,3,5,6,111];
+console.log(sorted.sort((a,b) => a - b));
+
+
+//^Functions
+//* A function is a block of javascript code that is defined once but may be invoked, any number of times.
+
+//*Defining functions
+function jamie(o){
+    for(let p in o){
+        console.log(`${p}: ${o[p]}\n`);
+    }
+}
+jamie(["name", "pie", "crudy"]);
+
+
+//*Function Expressions:
+let tensquared = function(x){return x*x;}(10);
+console.log(tensquared);
+
+//* Arrow functions
+const total = (x,y) => x + y;
+console.log(total(8,9));
+
+//*Nested functions
+function hypotenuse(a, b){
+    function square(x) {return x*x;}
+    return Math.sqrt(square(a) + square (b));
+}
+
+let hyp = hypotenuse(3,4);
+console.log(hyp);
+
+//* Invoking functions
+
+
+
