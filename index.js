@@ -976,6 +976,123 @@ let hyp = hypotenuse(3,4);
 console.log(hyp);
 
 //* Invoking functions
+//** As functions, as methods, as constructors, indirectly through their call() and apply() methods*/
 
 
 
+//&Functional invocation
+/*
+function accum(s){
+    let tim = s.split("")
+    for (let element of tim){
+        return tim.reduce((a,b) => a + b.repeat(element));
+    }
+}
+
+console.log(accum("jack"));
+
+
+function accum(s){
+    let tim = s.split("");
+    for (i = 0; i < tim[i].length; tim[i++]){
+
+    }
+}
+
+let sato = ["j", "m", "t"];
+let jo = 0;
+for (i = 0; i < sato.length ; i++){
+    jo = jo + 1;
+    console.log(sato[i].repeat(jo));
+}
+
+function accum(s){
+    let sstring = s.split("");
+    let arr = [];
+    counter = 0;
+    for (i = 0; i < sstring.length; i++){
+        counter = counter + 1;
+        arr.push(sstring[i].repeat(counter));
+    }
+    let set = arr;
+    let jew = [];
+    for(j = 0; j < set.length; j++){
+        jew.push(set[j][0].toUpperCase() + set[j].slice(1));
+    }
+    return jew;
+}
+
+console.log(accum("DoG"));
+*/
+function accum(s) {
+  return s.split('').map((x,i) => x.toUpperCase() + x.toLowerCase().repeat(i)).join('-');
+}
+console.log(accum("jacU"));
+
+//*constructor invocation
+function getPropertyNames(o, a){
+    if ( a === undefined) a = [];
+    for(let property in o) a.push(property);
+    return a;
+}
+
+let o = {x: 1}, poty = {y: 2, z:3};
+console.log(getPropertyNames({x: 1}));
+let atom = getPropertyNames(o);
+console.log(atom);
+console.log(getPropertyNames(poty, atom));
+
+
+const rectangle = (width, height = width*2) => ({width, height});
+console.log(rectangle(1));
+
+
+//* Rest Parameters and Variable-length Arguments lists.
+function max(first = -Infinity, ...rest){
+
+    let maxValue = first;
+    for( let n of rest){
+        if ( n > maxValue){
+            maxValue = n;
+        }
+
+    }
+    return maxValue;
+}
+
+console.log(max(1, 10, 100, 2, 3, 1000, 4, 5, 6));
+
+let scope = "global scope";
+function checkscope(){
+    let scope = "local scope";
+    function f() { return scope; }
+    return f;
+}
+console.log(checkscope()());
+
+let uniqueInteger = (function() {
+    let counter = 0;
+    return function() { return counter ++}
+}());
+console.log(uniqueInteger());
+console.log(uniqueInteger());
+
+let scopes = "global";
+function construnctFunction() {
+    let scopes = "local";
+    return new Function("return scope");
+}
+
+console.log(construnctFunction()());
+
+//* Functional programming
+//* Processing arrays with functions
+
+let datum = [1, 1, 3, 5, 5];
+let mean = datum.reduce((a,b) => a + b)/datum.length;
+
+datum = datum.map(x => x - mean );
+console.log(datum);
+const square = x => x*x;
+let stddev = Math.sqrt(datum.map(square).reduce((a,b) => a + b) / (datum.length - 1));
+console.log(stddev);
