@@ -1096,3 +1096,47 @@ console.log(datum);
 const square = x => x*x;
 let stddev = Math.sqrt(datum.map(square).reduce((a,b) => a + b) / (datum.length - 1));
 console.log(stddev);
+
+//*Higher-Order Functions
+function timed(f){
+    return function (...args){
+        console.log(`Entering function ${f.name}`);
+        let startTime = Date.now();
+        try { 
+            return f(...args);
+        }
+        finally{
+            console.log(`Exiting ${f.name} after ${Date.now() - startTime}ms`);
+        }
+    }
+}
+function benchmark(n){
+    let sum = 0;
+    for(let i = 1; i <= n; i++) sum += i;
+    return sum;
+}
+
+console.log(timed(benchmark)(10000));
+
+function not(f){
+    return function(...args){
+        let result = f.apply(this, args);
+        return !result;
+    }
+}
+
+const even = x => x % 2 === 0;
+const odd = not(even);
+console.log([1, 1, 3, 5, 5].every(even));
+
+const module = {
+    x: 42,
+    getX: function (){
+        return this.x;
+    }
+};
+
+const unboundGetX = module.getX;
+console.log(unboundGetX());
+
+
