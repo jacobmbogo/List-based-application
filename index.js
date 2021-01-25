@@ -837,7 +837,7 @@ let copy = Array.from(original);
 console.log(copy);
 copy[0] = 56;
 console.log(copy);
-
+/*
 let c = ["world"];
 let value = a[0];
 c[1] = 3.14;
@@ -852,6 +852,7 @@ console.log(c[5]);
 console.log(c);
 c[-45] = true;
 console.log(c);
+*/;
 
 //*Sparse Arrays:
 let cupod = [,,];
@@ -1136,7 +1137,157 @@ const module = {
     }
 };
 
-const unboundGetX = module.getX;
-console.log(unboundGetX());
+const unboundGetX = module.getX();
+console.log(unboundGetX);
+
+//* Classes and Prototypes
+/*
+function range(from, to){
+    let r = Object.create(range.methods);
+    r.from = from;
+    r.to = to;
+
+    return r;
+}
+
+range.methods = {
+    includes(x){ return this.from <= x && x <= this.to; },
+    *[Symbol.iterator](){
+        for(let x = Math.ceil(this.from); x <= this.to; x++) yield x;
+    },
+    toString(){
+        return "(" + this.from + "..." + this.to + ")";
+    }
+}
+
+let r = range(1,3);
+console.log(r.includes(2));
+console.log(r.toString());
+console.log([...r]);
 
 
+function check(num){
+    let numbEven = Object.create(check.how);
+    numbEven.num = num;
+
+    return numbEven;
+}
+
+
+check.how = {
+    isEven(){
+        this.num % 2 == 0 ? true : false
+    }
+}
+
+let numbEven = check(4);
+console.log(numbEven.isEven());
+*/
+
+//*Classes and Constructors
+//* A Range Class using a constructor
+
+function Range(from, to){
+    this.from = from;
+    this.to = to;
+}
+Range.prototype = {
+    includes: function(x) {return this.from <= x && x <= this.to; },
+    [Symbol.iterator]: function *(){
+        for (let x = Math.ceil(this.from); x <= this.to; x++) yield x;
+    },
+    toString:function(){
+        return "(" + this.from + "..." + this.to + ")";
+    }
+}
+
+let r = new Range(7, 10);
+console.log(r.includes(2));
+
+let z = new Range(4,5);
+console.log(z.includes(4.5));
+
+
+class Area { //* Trying to remember constructor syntax;
+    constructor(length, width){
+        this.length = length;
+        this.width =  width;
+    }
+    calculateArea(){
+         let area = this.length * this.width;
+         return `The area is ${area} square meters `;
+    }
+}
+
+let Area1 = new  Area(5, 6);
+console.log(Area1.calculateArea());
+
+let Area2 = new Area(7,190);
+console.log(Area2.calculateArea());
+
+console.log(Area1 instanceof Area);
+console.log(Area2 instanceof Area);
+
+//* The constructor property
+class Volume extends Area {
+    constructor(length, width, height){
+        super(length,width);
+        this.height = height;
+    }
+
+    static units(){
+        console.log `The base units is in meters`;
+    }
+
+    getVolume(){
+        console.log(this.length * this.width * this.height);
+    }
+}
+
+new Volume(12,2,5).getVolume();
+Volume.units();
+
+
+//* Example: A complex number class
+class Complex{
+    constructor(real, imaginary){
+        this.r = real;
+        this.i = imaginary;
+    }
+
+
+    plus(that){
+        return new Complex(this.r + that.r, this.i + that.i);
+    }
+ 
+    times(that){
+        return new Complex(this.r * that.r - this.i * that.i, this.r * that.i + this.i * that.r);
+    }
+
+
+    static sum(c, d){return c.plus(d);}
+    static product(c, d){
+        return c.times(d);
+    }
+
+    get real() { return this.r; }
+    get imaginary() { return this.i; }
+    get magnitude() { return Math.hypot(this.r, this.i); }
+
+    toString(){ return `{${this.r}, ${this.i}}`;}
+
+    equals(that){
+        return tat instanceof Complex &&
+        this.r === that.r &&
+        this.i === that.i;
+    }
+}
+
+Complex.ZERO = new Complex(0,0);
+Complex.ONE = new Complex(1,0);
+Complex.I = new Complex(0,1);
+
+let c = new Complex(2, 3);
+let d = new Complex(c.i, c.r);
+console.log(c.plus(d).toString());
+console.log(c.magnitude);
