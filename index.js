@@ -1291,3 +1291,61 @@ let c = new Complex(2, 3);
 let d = new Complex(c.i, c.r);
 console.log(c.plus(d).toString());
 console.log(c.magnitude);
+
+let jupiter = "crude";
+console.log( jupiter);
+
+//* Learning about regular expressions
+//* Net Ninja
+
+//* 1: Basic regular expressions
+let foo = "hello 1javascript#*()";
+foo = foo.replace(/[^a-z\d]+/gi,"").toLowerCase();
+console.log(foo);
+
+
+function palindrome(str) {
+    str = str.replace(/[^a-z\d]+/gi,"").toLowerCase();//* Filter to remove non-alphanumeric characters.
+    str = str.split('')//* Convert the new String into array to enable reverse method to work.
+    let rstr = str.reverse();
+    
+
+      function rvseorder(){//* Write a function to create a reverse of the rstr
+      
+          let arr = [];
+            for (let i = rstr.length-1; i >= 0; i--){
+                arr.push(rstr[i]);
+            }
+          let newArray = arr.join('');
+          let nstr = str.join('');
+
+                if (newArray === nstr){
+                    return true;
+                } else {
+                    return false;
+                }
+        }
+     return  rvseorder();
+ }
+
+
+
+console.log(palindrome("bogojacob"));
+
+let arr3 = [];
+let namess = ['h','e','l','o'];
+for (let i = namess.length-1; i >= 0; i--){
+            arr3.push(namess[i]);
+}
+console.log(arr3);
+
+
+function pali(string){
+    let str = string.replace(/[^a-z\d]+/gi,"").toLowerCase();
+    if( str === str.split('').reverse().join('')){
+        return true;
+    } else {
+        return false;
+    }
+}
+console.log(pali("noon"));
